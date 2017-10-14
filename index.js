@@ -15,7 +15,7 @@ app.post("/receive_message", function (request, response) {
 	console.log(request.body.Body);
 
   	var confirmed = false;
-  	for (var i = 0; i < numbers.length(); i++) {
+  	for (var i = 0; i < numbers.length; i++) {
   		if (request.body.From == numbers[i]) {
   			confirmed = true;
   		}
