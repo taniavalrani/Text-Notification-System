@@ -21,7 +21,7 @@ app.get('/', function(request, response){
 });
 
 app.post('/receive_message', function(request, response){
-  	console.log(request.query.sender);
+  	console.log(request.resource.text);
 
 	response.sendStatus(200);
 });
