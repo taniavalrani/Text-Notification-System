@@ -4,6 +4,8 @@ const app = express()
 
 app.use(express.static('/'));
 
+var port = process.env.PORT || 8080;
+
 var TMClient = require('textmagic-rest-client');
 
 var c = new TMClient('aribrown', 'GuMIti0sFF4lgbFuiES3OAraqKRKhK');
@@ -21,4 +23,4 @@ app.post('/receive_message', function(request, response){
   response.send(request.body);
 });
 
-app.listen(3000);
+app.listen(port);
