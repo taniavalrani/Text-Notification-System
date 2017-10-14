@@ -21,10 +21,7 @@ app.get('/', function(request, response){
 });
 
 app.post('/receive_message', function(request, response){
-  var JSON_data = JSON.parse(request.body);
-  consolse.log(JSON_data);
-
-  response.send(request.body);
+  console(request);
 
 
 });
