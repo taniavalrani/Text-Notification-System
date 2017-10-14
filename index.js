@@ -12,7 +12,7 @@ app.use(express.static('/'));
 
 var port = process.env.PORT || 8080;
 
-app.get('/send_message'function (req, res) {
+app.get('/send_message', function (req, res) {
 
 	client.messages.create({ 
 			to: "+18577076323", 
