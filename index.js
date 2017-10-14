@@ -21,9 +21,9 @@ app.get('/', function(request, response){
 });
 
 app.post('/receive_message', function(request, response){
-  console.log(request.body);
+  
 
-
+	reponse.send(200);
 });
 
 app.listen(port);
