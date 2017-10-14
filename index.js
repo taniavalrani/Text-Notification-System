@@ -2,12 +2,31 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
+var twilio = require('twilio');
 
 app.use(bodyParser.urlencoded({extended: false}));
+
+var numbers = ["+18577076323", "+13174109989", "+18474311996", "+14084665857", "+14158199349", "+17817525946", "+17742741928"];
+var driver = ["+13174109989"];
  
 app.post("/receive_message", function (request, response) {
+
 	console.log(request.body.Body);
-  	console.log(request.body.From); 
+
+  	var confirmed = false;
+  	for (var i = 0; i < numbers.length(); i++) {
+  		if (request.body.From == numbers[i]) {
+  			confirmed = true;
+  		}
+  	}
+
+  	if (confirmed) {
+		var twiml = new twilio.TwimlResponse();
+		twiml.message('NEC Shuttle Stop Requested!');
+		res.writeHead(200, {'Content-Type': 'text/xml'});
+		res.end(twiml.toString());
+  	}
+
 	response.sendStatus(200);
 });
  
@@ -19,48 +38,3 @@ app.get("/", function (request, response) {
 var listener = app.listen(process.env.PORT, function () {
 	console.log('Your app is listening on port ' + listener.address().port);
 });
-
-
-// var client = require('twilio')(accountSid, authToken); 
-
-// app.use(express.static('/'));
-
-// var port = process.env.PORT || 8080;
-
-// app.get('/send_message', function (req, res) {
-
-// 	client.messages.create({ 
-// 			to: "+18577076323", 
-// 			from: "+13179618398 ", 
-// 			body: "hi", 
-// 		}, 
-// 		function(err, message) { 
-// 			console.log(message.sid);
-// 	});
-
-// 	res.sendStatus(200);
-// });
-
-// app.post('/sms', function(req, res) {
-//   var twiml = new twilio.TwimlResponse();
-//   twiml.message('The Robots are coming! Head for the hills!');
-//   res.writeHead(200, {'Content-Type': 'text/xml'});
-//   res.end(twiml.toString());
-
-
-// });
-
-// /* Send a message
-// 	var c = new TMClient('aribrown', 'GuMIti0sFF4lgbFuiES3OAraqKRKhK');
-// 	c.Messages.send({text: 'hey tania isn\'t it weird, i know your name', phones:'18577076323'}, function(err, res){
-// 	    console.log('Messages.send()', err, res);
-// 	});
-// */
-
-// app.get('/', function(request, response){
-// 	response.write("You should be practicing");
-// 	response.send();
-// });
-
-
-// app.listen(port);
