@@ -1,6 +1,7 @@
 
-const express = require('express')
-const app = express()
+const express = require('express');
+const app = express();
+var multiparty = require('multiparty');
 
 app.use(express.static('/'));
 
@@ -21,7 +22,15 @@ app.get('/', function(request, response){
 });
 
 app.post('/receive_message', function(request, response){
-  	console.log(request.resource.text);
+  	console.log(request.headers['content_type']);
+
+	// parse a file upload
+	var form = new multiparty.Form();
+
+	form.parse(request, function(err, fields, files) {
+		console.log(util.inspect({fields: fields, files: files}));
+	});
+
 
 	response.sendStatus(200);
 });
