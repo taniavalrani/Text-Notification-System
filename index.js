@@ -6,6 +6,7 @@ var twilio = require('twilio');
 
 app.use(bodyParser.urlencoded({extended: false}));
 
+var TWILIO_PHONE_NUMBER = "+13179618398";
 var numbers = ["+18577076323", "+13174109989", "+18474311996", "+14084665857", "+14158199349", "+17817525946", "+17742741928"];
 var driver = ["+13174109989"];
  
@@ -21,10 +22,13 @@ app.post("/receive_message", function (request, response) {
   	}
 
   	if (confirmed) {
-		var twiml = new twilio.TwimlResponse();
-		twiml.message('NEC Shuttle Stop Requested!');
-		res.writeHead(200, {'Content-Type': 'text/xml'});
-		res.end(twiml.toString());
+		client.messages.create({
+			from: TWILIO_PHONE_NUMBER,
+			to: driver,
+			body: "NEC Shuttle Stop Request!"
+		}).then((messsage) => {
+			// do nothing
+		});
   	}
 
 	response.sendStatus(200);
