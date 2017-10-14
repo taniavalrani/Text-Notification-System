@@ -23,7 +23,7 @@ app.get('/', function(request, response){
 app.post('/receive_message', function(request, response){
   
 
-	reponse.send(200);
+	response.sendStatus(200);
 });
 
 app.listen(port);
